@@ -16,7 +16,7 @@ describe('Cards layout component testing', () => {
   beforeEach(() => {
     component = setUp(componentProps);
   });
-  it('Should render error when we have error', () => {
+  it('Shouldt render error when everything is OK', () => {
     const element = component.find('[data-id="error"]');
     expect(element).toHaveLength(0);
   });
@@ -24,7 +24,7 @@ describe('Cards layout component testing', () => {
     const element = component.find('[data-id="content"]');
     expect(element).toHaveLength(1);
   });
-  it('Should render loader when we have loading', () => {
+  it('Shouldnt render loader when content already loaded', () => {
     const element = component.find('[data-id="loading"]');
     expect(element).toHaveLength(0);
   });
