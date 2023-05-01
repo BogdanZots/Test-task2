@@ -1,19 +1,33 @@
-import CardsList, { ICardListProps } from '../CardsList';
+import React from 'react';
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { shallow, mount, configure, ShallowWrapper } from 'enzyme';
+import CardsList from '../CardsList';
 
 configure({ adapter: new Adapter() });
 
-const setUp = (props: ICardListProps) => shallow(<CardsList {...props} />);
-
-describe('Cards layout component testing', () => {
-  const componentProps = { cards: [1, 2, 3] };
-  let component: ShallowWrapper;
-  beforeEach(() => {
-    component = setUp(componentProps);
+describe('CardsList component', () => {
+  it('should render with no cards', () => {
+    const wrapper = shallow(<CardsList cards={[]} />);
+    expect(wrapper.find('[data-id="list"]')).toHaveLength(1);
   });
-  it('Should render list correctly', () => {
-    const element = component.find('[data-id="list"]');
-    expect(element.children()).toHaveLength(componentProps.cards.length);
+
+  it('should render with one card', () => {
+    const wrapper = shallow(<CardsList cards={[1]} />);
+    expect(wrapper.find('[data-id="list"]')).toHaveLength(1);
+    expect(wrapper.find('[data-testid="card-1"]')).toHaveLength(1);
+  });
+
+  it('should render with multiple cards', () => {
+    const wrapper = shallow(<CardsList cards={[1, 2, 3]} />);
+    console.log(wrapper.debug());
+    expect(wrapper.find('[data-id="list"]')).toHaveLength(1);
+    expect(wrapper.find('[data-testid="card-1"]')).toHaveLength(1);
+    expect(wrapper.find('[data-testid="card-2"]')).toHaveLength(1);
+    expect(wrapper.find('[data-testid="card-3"]')).toHaveLength(1);
+  });
+
+  it('should render root element with data-id attribute equal to "list"', () => {
+    const wrapper = shallow(<CardsList cards={[1, 2, 3]} />);
+    expect(wrapper.find('[data-id="list"]')).toHaveLength(1);
   });
 });
