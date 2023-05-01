@@ -6,9 +6,9 @@ import CardsList from '../CardsList';
 configure({ adapter: new Adapter() });
 
 describe('CardsList component', () => {
-  it('should render with no cards', () => {
+  it('should render no data placeholder', () => {
     const wrapper = shallow(<CardsList cards={[]} />);
-    expect(wrapper.find('[data-id="list"]')).toHaveLength(1);
+    expect(wrapper.find('[data-id="no-data"]')).toHaveLength(1);
   });
 
   it('should render with one card', () => {
@@ -27,7 +27,6 @@ describe('CardsList component', () => {
         ]}
       />,
     );
-    console.log(wrapper.debug());
     expect(wrapper.find('[data-id="list"]')).toHaveLength(1);
     expect(wrapper.find('[data-testid="card-1"]')).toHaveLength(1);
     expect(wrapper.find('[data-testid="card-2"]')).toHaveLength(1);
