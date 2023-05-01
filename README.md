@@ -5,7 +5,7 @@
 4) Добавленный prettier и eslint 
 5) Добавлен ErrorBoundary для глобального отлова ошибок 
 
-Запуск обычный при помощи : create-react-app , npm i , npm start
+Запуск обычный при помощи :  npm i , npm start
 
 Возможные идеи для тест кейсов : 
 
