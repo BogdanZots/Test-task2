@@ -7,6 +7,7 @@ export interface ICardListProps {
 }
 
 export default function CardsList({ cards }: ICardListProps) {
+  if (!cards.length) return <div>No data</div>;
   return (
     <StyledCardsContainer data-id="list">
       {cards.map((item, index) => (
