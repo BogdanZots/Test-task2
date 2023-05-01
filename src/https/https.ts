@@ -1,33 +1,35 @@
 import { API_URL } from '../consts/consts';
-import { DogsRequstType, INumbersPairedReponse } from '../types/types';
+import { IDogsRequstResponse, INumbersPairedReponse } from '../types/types';
 
 const controller = new AbortController();
 const signal = controller.signal;
 
-const makeRequest = async (): Promise<DogsRequstType> => {
+const makeRequest = async (): Promise<IDogsRequstResponse> => {
   const urls = [API_URL, API_URL];
   const promises = urls.map(url => fetch(url, { signal }));
-  return Promise.all(promises)
-    .then(responses => {
-      return Promise.all(responses.map(response => response.json()));
-    })
-    .catch(error => {
-      return error.message;
-    });
+  try {
+    const responses = await Promise.all(promises);
+    const data = await Promise.all(responses.map(response => response.json()));
+    return { data };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    return { error: errorMessage, data: [] };
+  }
 };
 
 export const isNumbersPaired = async (): Promise<INumbersPairedReponse> => {
-  const data = { isPaired: false };
+  let isPaired = false;
   const response = await makeRequest();
-  if (typeof response === 'string') {
-    return { errorMessage: response, ...data };
+  if (response.error) {
+    return { errorMessage: response.error, isPaired };
   }
-  const numbersCount = response.reduce((prev, current) => {
+  const numbersCount = response.data.reduce((prev, current) => {
     return prev + current;
   }, 0);
   if (numbersCount % 2 === 0) {
+    isPaired = true;
     controller.abort();
-    return { ...data, isPaired: true };
+    return { isPaired };
   }
-  return data;
+  return { isPaired };
 };

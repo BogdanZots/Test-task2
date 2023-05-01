@@ -3,7 +3,10 @@ export interface INumbersPairedReponse {
   isPaired: boolean;
 }
 
-export type DogsRequstType = number[] | string;
+export interface IDogsRequstResponse {
+  data: Array<number>;
+  error?: string;
+}
 
 export interface IUseRequestResponse {
   response: boolean;
