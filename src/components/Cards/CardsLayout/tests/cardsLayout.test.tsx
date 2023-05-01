@@ -1,6 +1,6 @@
 import CardsLayout, { ICardsLayoutProps } from '../CardsLayout';
 import Adapter from 'enzyme-adapter-react-16';
-import { shallow, mount, configure, ShallowWrapper } from 'enzyme';
+import { shallow, configure, ShallowWrapper } from 'enzyme';
 
 configure({ adapter: new Adapter() });
 

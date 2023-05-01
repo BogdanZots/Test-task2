@@ -1,5 +1,5 @@
 import { API_URL } from '../consts/consts';
-import { IDogsRequstResponse, INumbersPairedReponse } from '../types/types';
+import { IDogsRequstResponse, INumbersPairedResponse } from '../types/types';
 
 const controller = new AbortController();
 const signal = controller.signal;
@@ -17,7 +17,7 @@ const makeRequest = async (): Promise<IDogsRequstResponse> => {
   }
 };
 
-export const isNumbersPaired = async (): Promise<INumbersPairedReponse> => {
+export const isNumbersPaired = async (): Promise<INumbersPairedResponse> => {
   let isPaired = false;
   const response = await makeRequest();
   if (response.error) {

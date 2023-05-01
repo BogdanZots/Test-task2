@@ -1,18 +1,17 @@
+import { ICard } from '../../../types/types';
 import Card from '../Card/Card';
 import { StyledCardsContainer } from './CardsList.styled';
 
 export interface ICardListProps {
-  cards: Array<number>;
+  cards: Array<ICard>;
 }
 
 export default function CardsList({ cards }: ICardListProps) {
   return (
     <StyledCardsContainer data-id="list">
-      {cards.map((item, index) => {
-        return (
-          <Card data-testid={`card-${index + 1}`} key={String(item)} index={String(index + 1)} />
-        );
-      })}
+      {cards.map((item, index) => (
+        <Card data-testid={`card-${item.id}`} key={item.id} path={item.path} />
+      ))}
     </StyledCardsContainer>
   );
 }

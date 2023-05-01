@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { INumbersPairedReponse, IUseRequestResponse } from '../types/types';
+import { INumbersPairedResponse, IUseRequestResponse } from '../types/types';
 
-export const useRequest = <T extends () => Promise<INumbersPairedReponse>>(
+export const useRequest = <T extends () => Promise<INumbersPairedResponse>>(
   cb: T,
 ): IUseRequestResponse => {
   const [response, setResponse] = useState(false);
